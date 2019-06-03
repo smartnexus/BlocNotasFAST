@@ -69,15 +69,37 @@ public class NotasDAO {
 	}
 	
 	public Nota obtener(int id) throws DAOException {
-		//TODO pruebas
-		Nota ejemplo = new Nota();
-		ejemplo.setId(id);
-		ejemplo.setNombreUsuario("usuario");
-		ejemplo.setNota("Esta es una nota de ejemplo.");
-		ejemplo.setTitulo("Título de la nota");
-		ejemplo.setUrlimagen("imagenes/nota.png");
+		Nota nota = null;
+		Connection conn;
 		
-		return ejemplo;
+		try {
+			conn = ds.getConnection();
+			String sql = "SELECT * FROM notas WHERE id=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(0, id);
+			ResultSet rs = st.executeQuery();
+			System.out.println("Se van a buscar la nota con id="+id);
+			if (rs.next()) {
+				nota = new Nota();
+				nota.setId(rs.getInt(1)); 
+				nota.setNombreUsuario(rs.getString(2));
+				nota.setTitulo(rs.getString(3));
+				nota.setNota(rs.getString(4));
+				nota.setUrlimagen(rs.getString(5));
+				nota.setColor(rs.getString(6));
+				nota.setCategoria(rs.getString(7));
+				System.out.println("Se ha encontrado la nota con id="+nota.getId());
+			}
+			rs.close();
+			st.close();
+			conn.close();			
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error de acceso a la base de datos. NotasDAO.");
+			throw (new DAOException("Error en obtener(id) de NotasDAO"));
+		}
+		
+		return nota;
 	}
 	
 	/**
@@ -120,6 +142,39 @@ public class NotasDAO {
 			throw (new DAOException("Error en obtener(id,usuario) de NotasDAO"));
 		}
 		return nota;
+	}
+	
+	/**
+	 * Obtiene una lista de notas con los títulos e id solo.
+	 * @return Lista con las notas del usuario, o lista vacía
+	 */
+	public List<Nota> obtenerTitulos() {
+		List<Nota> lista = new ArrayList<>();
+		
+		Connection conn;
+		try {
+			conn = ds.getConnection();
+			String sql = "SELECT id, titulo FROM notas";
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			System.out.println("Se van a buscar todas las notas.");
+			while (rs.next()) {
+				Nota nota = new Nota();
+				nota.setId(rs.getInt(1)); 
+				nota.setTitulo(rs.getString(2));
+				System.out.println("Se ha encontrado la nota con id="+nota.getId()+" y titulo="+nota.getTitulo());
+				lista.add(nota);
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error de acceso a la base de datos. NotasDAO.");
+		}
+		
+		return lista;
+		
 	}
 	
 	/**

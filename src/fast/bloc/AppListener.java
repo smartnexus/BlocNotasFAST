@@ -31,7 +31,7 @@ public class AppListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent event)  {
-    	String autor = "Apellidos, Nombre - UVUS";
+    	String autor = "Rodríguez Bohórquez, Ángel - angrodboh";
     	event.getServletContext().setAttribute("autor", autor);
     	System.out.println("Creado atributo autor: "+ autor);
     	
