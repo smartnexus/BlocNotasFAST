@@ -144,6 +144,35 @@ public class NotasDAO {
 		return nota;
 	}
 	
+	
+	/**
+	 * Obtiene el texto de todas las notas que coincidan con (usuario)
+	 * @param admin
+	 * @param usuario
+	 * @return lista con todos los textos de las notas de cada usuario.
+	 */
+	public List<String> obtenerTextoNotas(String usuario, boolean admin) {
+		List<String> textos = new ArrayList<>();
+		Connection conn;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = admin?"SELECT nota FROM notas":"SELECT nota FROM notas WHERE nombre_usuario=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			if(!admin) st.setString(1, usuario);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				textos.add(rs.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error de acceso a la base de datos. NotasDAO.");
+			e.printStackTrace();
+		}
+		
+		return textos;
+	}
+	
 	/**
 	 * Obtiene una lista de notas con los títulos e id solo.
 	 * @return Lista con las notas del usuario, o lista vacía
