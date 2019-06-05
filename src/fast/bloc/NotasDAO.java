@@ -76,7 +76,7 @@ public class NotasDAO {
 			conn = ds.getConnection();
 			String sql = "SELECT * FROM notas WHERE id=?";
 			PreparedStatement st = conn.prepareStatement(sql);
-			st.setInt(0, id);
+			st.setInt(1, id);
 			ResultSet rs = st.executeQuery();
 			System.out.println("Se van a buscar la nota con id="+id);
 			if (rs.next()) {
@@ -154,7 +154,7 @@ public class NotasDAO {
 		Connection conn;
 		try {
 			conn = ds.getConnection();
-			String sql = "SELECT id, titulo FROM notas";
+			String sql = "SELECT id, titulo, nombre_usuario FROM notas";
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			System.out.println("Se van a buscar todas las notas.");
@@ -162,6 +162,7 @@ public class NotasDAO {
 				Nota nota = new Nota();
 				nota.setId(rs.getInt(1)); 
 				nota.setTitulo(rs.getString(2));
+				nota.setNombreUsuario(rs.getString(3));
 				System.out.println("Se ha encontrado la nota con id="+nota.getId()+" y titulo="+nota.getTitulo());
 				lista.add(nota);
 			}

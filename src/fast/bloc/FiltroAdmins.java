@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet Filter implementation class FiltroClientes
  */
-@WebFilter("/menu.jsp")
-public class FiltroMenu implements Filter {
+@WebFilter("/admins/*")
+public class FiltroAdmins implements Filter {
 
     /**
      * Default constructor. 
      */
-    public FiltroMenu() {
+    public FiltroAdmins() {
     }
 
 	/**
@@ -34,18 +34,20 @@ public class FiltroMenu implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
-		if(usuario != null) {
+		
+		if (req.getSession().getAttribute("usuario") != null) {
 			if(usuario.getTipo_usu() == 0) {
-				req.getRequestDispatcher("/admins/menu.jsp").forward(req, res);
+				// pass the request along the filter chain
+				chain.doFilter(request, response);
 			} else {
-				req.getRequestDispatcher("/usuarios/menu.jsp").forward(req, res);
+				HttpServletResponse res = (HttpServletResponse) response;
+				res.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso prohibido");
 			}
 		} else {
+			HttpServletResponse res = (HttpServletResponse) response;
 			res.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso prohibido");
 		}
-				
 	}
 
 	/**

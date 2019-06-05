@@ -81,7 +81,7 @@
 					<option value="#0000FF">blue</option>
 					<option value="#000000">black</option>
 				</select>
-				<input id="color" type="color" onchange="cambiaFondo()" name="color"></input>
+				+<input id="color" type="color" onchange="cambiaFondo()" name="color"></input>
 				</div>
 			</div>
 			<div class="imagen-div">

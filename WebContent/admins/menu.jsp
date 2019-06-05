@@ -12,7 +12,7 @@
   </head>
 	<jsp:include page="cabecera.jsp" />
 	<div id="menu">
-		<h1>Menú</h1>
+		<h1>Menú de Administradores</h1>
 		<ol>
 		<li>
 			<a href="usuarios/crearnota.jsp"><span class="fondo">
@@ -21,8 +21,14 @@
 		</li>
 		<li>
 			<a href="usuarios/listarnotas.jsp"><span class="fondo">
-				<span class="textoopcion">Mostrar</span>
-			</span></a></li>
+				<span class="textoopcion">Mostrar <br>propias</span>
+			</span></a>
+		</li>
+		<li>
+			<a href="admins/listarnotasTodas.jsp"><span class="fondo">
+				<span class="textoopcion">Mostrar <br>todas</span>
+			</span></a>
+		</li>
 		</ol>
 	</div>
 

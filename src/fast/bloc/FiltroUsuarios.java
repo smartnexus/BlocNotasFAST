@@ -37,7 +37,6 @@ public class FiltroUsuarios implements Filter {
 		
 		if (req.getSession().getAttribute("usuario") != null) {
 			// pass the request along the filter chain
-			System.out.println(req.getSession().getAttribute("usuario"));
 			chain.doFilter(request, response);
 		} else {
 			HttpServletResponse res = (HttpServletResponse) response;

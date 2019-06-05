@@ -84,7 +84,7 @@ function borrar(event, id) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST",peticion,true);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.onreadystatechange = function(){ ºx
+		xmlhttp.onreadystatechange = function(){
 			if (xmlhttp.readyState==4) {
 				if (xmlhttp.status==200) { 
 					//Respuesta recibida completamente (4) y sin

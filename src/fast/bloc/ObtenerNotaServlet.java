@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ObtenerNotaServlet
  */
-@WebServlet("/usuarios/nota")
+@WebServlet(urlPatterns= {"/usuarios/nota", "/admins/nota"})
 public class ObtenerNotaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,9 +32,16 @@ public class ObtenerNotaServlet extends HttpServlet {
 	    NotasDAO notas = (NotasDAO) getServletContext().getAttribute("notas");
 		Nota nota = null;
 		try {
-			nota = notas.obtener(Integer.parseInt(idStr), usuario.getNombre());
-			if ( nota == null ) {
-				mensajeError = "La nota no existe.";
+			if(usuario.getTipo_usu() == 0) {
+				nota = notas.obtener(Integer.parseInt(idStr));
+				if ( nota == null ) {
+					mensajeError = "La nota no existe.";
+				}
+			} else {
+				nota = notas.obtener(Integer.parseInt(idStr), usuario.getNombre());
+				if ( nota == null ) {
+					mensajeError = "La nota no existe.";
+				}
 			}
 
 		} catch (DAOException e) {
