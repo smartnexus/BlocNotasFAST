@@ -29,6 +29,9 @@ List<Nota> lista = notas.obtenerTitulos(usuario.getNombre());
 				//Generamos tabla
 			%>
 				<tr id='fila-<%=nota.getId()%>'>
+					<td class="checkbox infonota">
+						<input type="checkbox" id='checkbox-<%=nota.getId()%>' onclick="event.stopPropagation();"></input>
+					</td>
 					<td class="infonota">
 						<p><strong><%=nota.getTitulo()%></strong></p>
 						<div class='detalle' id='detalle-<%=nota.getId()%>'></div>
@@ -39,6 +42,7 @@ List<Nota> lista = notas.obtenerTitulos(usuario.getNombre());
 			%>
 			</table>
 		</div>
+		<div><button class="boton" onclick="toggle()">Des/Marcar Todas</button>&nbsp;<button class="boton" onclick="deleteAll()">Borrar Seleccionadas</button></div>
 
 	</div>
 

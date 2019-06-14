@@ -182,7 +182,7 @@ a img {
 	padding-left: 20px;
 }
 
-#lista td:hover {
+#lista tr:hover {
 	background-color: #fec;
 }
 
@@ -223,6 +223,9 @@ a img {
 }
 .imagen-div, .color-div {
 	clear: both;
+}
+.checkbox {
+	width: 5px;
 }
 
 

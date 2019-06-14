@@ -23,9 +23,10 @@ function incorporarCategoria(event) {
 	document.getElementById("categoria").innerHTML += "<option>" + nueva + "</option>";
 	document.getElementById("categoria").value = nueva;
 }
-window.addEventListener("load", function() {
-	var def = "#FF0000"
-	document.getElementById("color").value = def;
-	document.getElementById("selector").value = def;
-	cambiaFondo(def);
+window.addEventListener("load", function() {	
+	var color = document.getElementById("color").value;
+	document.getElementById("nota").style.backgroundColor = color;
+	document.getElementById("selector").innerHTML += "<option value='" + color + "'>custom " + counter + "</option>";
+	document.getElementById("selector").value = color;
+	counter++;
 });

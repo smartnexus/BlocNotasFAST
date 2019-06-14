@@ -5,10 +5,12 @@
 <%
 //Comprobamos si hay que cerrar la sesion
 Usuario usuario = null;  
-if (request.getParameterMap().containsKey("salir"))
+Boolean error = (session.getAttribute("error") == "true"); //Muestra error si se ha fallado la contraseña!!
+if (request.getParameterMap().containsKey("salir")) {
 	session.invalidate();
-else
+} else {
 	usuario = (Usuario) session.getAttribute("usuario");
+}
 %>
 
 <!DOCTYPE html>
@@ -60,8 +62,15 @@ else
 			<!-- Sesion iniciada: Mostramos información del usuario -->
 			<span class='acceso' id='nombreusuario'>${usuario.nombre} </span>
 		<% } %>
+		<% 
+		if(error) {
+		%>
+		<div id="error"><p> ERROR: usuario o contraseña incorrecta</p></div>
+		<%
+		}
+		%>
 	</div>
-
+	
 	<div id="bienvenida">
 		<h1>Bienvenido a</h1>
 		<p><img src="imagenes/blocnotasfast.png" alt="Bloc de Notas FAST" /></p>

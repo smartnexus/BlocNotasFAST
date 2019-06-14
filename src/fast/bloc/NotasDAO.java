@@ -249,6 +249,48 @@ public class NotasDAO {
 	 * @return true si se ha insertado o false si no
 	 * @throws DAOException
 	 */
+	public boolean actualizar(int id, String usuario, Nota nota) throws DAOException {
+		Connection conn;
+		boolean rest = false;
+		
+		System.out.println(nota.getCategoria());
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "UPDATE notas SET (titulo, nota, urlimagen, color, categoria) = (?,?,?,?,?) WHERE id=? AND nombre_usuario=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, nota.getTitulo());
+			st.setString(2, nota.getNota());
+			st.setString(3, nota.getUrlimagen());
+			st.setString(4, nota.getColor());
+			st.setString(5, nota.getCategoria());
+			st.setInt(6, nota.getId());
+			st.setString(7, usuario);
+			System.out.println("Se va a actualizar la nota del usuario="+nota.getNombreUsuario());
+			int contador = st.executeUpdate();
+			if (contador == 1) {
+				System.out.println("Se ha actualizado la nota del usuario="+nota.getNombreUsuario());
+				rest=true;
+			}
+			st.close();
+			conn.close();	
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error de acceso a la base de datos. NotasDAO.");
+			throw (new DAOException("Error en actualizar(nota) de NotasDAO"));
+		}
+		
+		return rest;
+	}
+	
+	/**
+	 * Inserta una nota en la tabla notas
+	 * Los campos que ya tienen datos son: nombre_usuario, titulo, nota, urlimagen
+	 * El campo id lo genera el SGBBDD
+	 * @param nota
+	 * @return true si se ha insertado o false si no
+	 * @throws DAOException
+	 */
 	public boolean insertar(Nota nota) throws DAOException {
 		Connection conn;
 		boolean resultado=false;

@@ -2,6 +2,7 @@
 
 //Indica el id de la ultima nota cuyo detalle se ha mostrado
 var ultid=-1;
+var s = 0;
 
 //Esta funcion sirve para mostrar un mensaje mientras se obtienen los detalles
 function mostrarEsperando(elemento) {
@@ -24,6 +25,7 @@ function mostrarDetalle(elemento, objetoDetalle) {
 			"<p class='textonota' style='background-color:" + objetoDetalle.color  + "'>"+
 			objetoDetalle.nota+"</p><p>"+
 			"<img src='"+objetoDetalle.imagen+"' alt='Sin imagen'/><br />"+
+			"<button class='boton' onclick='window.open(\"editarnota.jsp?id="+ultid+"\")' target='_blank'>Editar</button>&nbsp;"+
 			"<button class='boton' onclick='borrar(event, ultid);'>Borrar</button></p>";
 	}
 }
@@ -47,6 +49,7 @@ function mostrar() {
 		var divDetalle = document.getElementById("detalle-"+ultid);
 		mostrarEsperando(divDetalle);
 		divDetalle.style.display="block"; //Hacemos visible
+		
 
 		//Peticion AJAX
 		var peticion="nota?id="+ultid;
@@ -70,13 +73,30 @@ function mostrar() {
 	}
 }
 
+function deleteAll() {
+	var checkboxs = document.querySelectorAll(".infonota input");
+	var j = [];
+	for(var i=0; i< checkboxs.length; i++) {
+		if(checkboxs[i].checked) j.push(checkboxs[i].id.split("-")[1]);
+	}
+	if(j.length > 0) {
+		var ok = confirm("¿Borrar todas las notas selecionadas?");
+		for(var k=0; k < j.length; k++) {
+			borrar(null, parseInt(j[k]))
+		}
+	} else {
+		alert("No ha seleccionado ninguna nota")
+	}
+	
+}
+
 //Muestra informacion sobre la nota con el identificador pasado
 function borrar(event, id) {
 	
 	//Para evitar que se oculte el detalle
-	event.stopPropagation();
+	if(event) event.stopPropagation();
 	
-	if (ultid == id) { //en este caso, borramos
+	if (!event || ultid == id) { //en este caso, borramos
 		
 		
 		//Peticion AJAX
@@ -97,7 +117,7 @@ function borrar(event, id) {
 				}
 			}
 		  };
-		xmlhttp.send("id="+ultid); //enviamos
+		xmlhttp.send("id="+id); //enviamos
 	}
 	
 }
@@ -118,6 +138,15 @@ function procesarResultadoBorrar(resultadoBorrar) {
 		//cambiamos ultid
 		ultid = -1;
 	}
+}
+function toggle() {
+	var checkboxs = document.querySelectorAll(".infonota input");
+	for(var i=0; i< checkboxs.length; i++) {
+		checkboxs[i].checked=s==0?true:false;
+	}
+	if(s == 1) s = 0;
+	else s = 1;
+	
 }
 
 window.addEventListener("load", function() {

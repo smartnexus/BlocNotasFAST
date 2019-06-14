@@ -36,9 +36,11 @@ public class AccederServlet extends HttpServlet {
 			if (usuario != null)
 				req.getSession().setAttribute("usuario", usuario);
 		}
-		if ( req.getSession().getAttribute("usuario") != null) {
+		if (req.getSession().getAttribute("usuario") != null) {
+			req.getSession().setAttribute("error", "false");
 			resp.sendRedirect("menu.jsp");
 		} else {
+			req.getSession().setAttribute("error", "true");
 			resp.sendRedirect("index.jsp");
 		}
 	}
