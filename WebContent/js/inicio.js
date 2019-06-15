@@ -7,7 +7,16 @@ function muestraFormAcceso() {
 function ocultaFormAcceso() {
 	document.getElementById("formacceso").style.display = "none";
 }
+function muestraFormRegistro() {
+	document.getElementById("formregistro").style.display = "block";
+	document.getElementById("usuario").focus();
+}
+function ocultaFormRegistro() {
+	document.getElementById("formregistro").style.display = "none";
+}
 window.addEventListener("load", function() {
 	document.getElementById("botonAcceso").onclick = muestraFormAcceso;
-	document.getElementById("botonCancelar").onclick = ocultaFormAcceso;
+	document.getElementById("botonCancelarA").onclick = ocultaFormAcceso;
+	document.getElementById("botonRegistro").onclick = muestraFormRegistro;
+	document.getElementById("botonCancelarR").onclick = ocultaFormRegistro;
 });

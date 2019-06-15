@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class AccederServlet
- */
-@WebServlet("/acceso")
-public class AccederServlet extends HttpServlet {
+@WebServlet("/registro")
+public class RegistroServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-       
-    /**
+	
+	/**
      * @see HttpServlet#HttpServlet()
      */
-    public AccederServlet() {
+    public RegistroServlet() {
         super();
         
     }
@@ -30,19 +31,17 @@ public class AccederServlet extends HttpServlet {
 		String usu = req.getParameter("usuario");
 		String contra = req.getParameter("clave");
 		UsuariosDAO usuarios = (UsuariosDAO) getServletContext().getAttribute("usuarios");
-		if (usu != null && contra != null && usuarios != null)
-		{
+		if(usuarios.crear(usu, contra)) {
 			Usuario usuario = usuarios.existe(usu, contra);
-			if (usuario != null)
-				req.getSession().setAttribute("usuario", usuario);
-		}
-		if (req.getSession().getAttribute("usuario") != null) {
-			req.getSession().setAttribute("error-a", "false");
+			req.getSession().setAttribute("error-r", "false");
+			req.getSession().setAttribute("usuario", usuario);
 			resp.sendRedirect("menu.jsp");
 		} else {
-			req.getSession().setAttribute("error-a", "true");
+			req.getSession().setAttribute("error-r", "true");
 			resp.sendRedirect("index.jsp");
 		}
 	}
+	
+	
 
 }

@@ -20,12 +20,12 @@ a img {
 	text-transform: uppercase;
 }
 
-.boton:hover,  .acceso:hover{
+.boton:hover,  .acceso:hover, .registro:hover{
 	background-color: #5a5;
 }
 
 
-.acceso {
+.acceso, .registro {
 	display: block;
 	background-color: #a55;
 	color: white;
@@ -38,7 +38,7 @@ a img {
 }
 
 
-#formacceso {
+#formacceso, #formregistro {
 	border: 2px solid #a55;
 	color: #a55;
 	background-color: white;
@@ -52,14 +52,24 @@ a img {
 	right: 10px;
 }
 
-#formacceso .boton {
+#formacceso .boton, #formregistro .boton {
 	font-size: 10px;
 	font-weight: bold;
 	padding: 5px;
 	margin: 0;
 }
 
-#botonCancelar {
+#formacceso h4, #formregistro h4 {
+	font-size: 15px;
+	font-weight: bold;
+	background-color: #a55;
+	color: white;
+	text-align: center;
+	margin: 0;
+	padding: 2px 0 2px;
+}
+
+#botonCancelar, #botonCancelarR, #botonCancelarA {
 	float: right;
 }
 

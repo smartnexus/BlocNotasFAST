@@ -32,6 +32,34 @@ public class UsuariosDAO {
 	 * @param clave Clave del usuario
 	 * @return Objeto Usuario relleno o null si no existe.
 	 */
+	public boolean crear(String nombre, String clave) {
+		//Usuario usuario = new Usuario(nombre, Usuario.CLIENTE);
+		Connection conn;
+		boolean res = false;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "INSERT INTO usuarios (nombre, clave, tipo_usu) VALUES (?,?,?)";
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, nombre);
+			st.setString(2, clave);
+			st.setInt(3, Usuario.CLIENTE);
+			int contador = st.executeUpdate();
+			if (contador == 1) {
+				System.out.println("Se ha creado el usuario="+nombre);
+				res=true;
+			}
+			st.close();
+			conn.close();
+			
+		} catch(SQLException e) {
+			res=false;
+			System.out.println("El usuario ya existe. UsuariosDAO");
+		}
+		
+		return res;
+	}
+	
 	Usuario existe(String nombre, String contra) {
 		
 		Usuario usuario = null; 
@@ -46,9 +74,7 @@ public class UsuariosDAO {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				System.out.println("Se ha encontrado el usuario y la clave coincide.");
-				usuario = new Usuario();
-				usuario.setNombre(nombre);
-				usuario.setTipo_usu(rs.getInt(3));
+				usuario = new Usuario(nombre, rs.getInt(3));
 				System.out.println("El tipo de usuario es="+usuario.getTipo_usu());
 			}
 			else {

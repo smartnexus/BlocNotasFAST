@@ -24,8 +24,9 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public Usuario() {
-
+	public Usuario(String nombre, int tipo_usu) {
+		this.nombre = nombre;
+		this.tipo_usu = tipo_usu;
 	}
 	
 	public Usuario(String nombre) {
