@@ -201,6 +201,19 @@ a img {
 	border-collapse: collapse;
 	margin-bottom: 40px;
 }
+.botones {
+	text-align: center!important;
+}
+tr.first p {
+	margin: 0;
+}
+tr.first:hover {
+	background-color: white!important;
+}
+
+#lista p.gestion {
+	text-align: center;
+}
 
 .detalle {
 	display: none;

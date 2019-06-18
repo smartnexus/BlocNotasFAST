@@ -41,7 +41,7 @@ if (request.getParameterMap().containsKey("salir")) {
 				<h4>Crear usuario</h4>
 				<p> 
 					<label for="usuario">Usuario:</label><br/>
-					<input type="text" name="usuario" size="20" id="usuario" required="required"/>
+					<input type="text" name="usuario" size="20" id="usuarioR" required="required"/>
 				</p>
 				<p> 
 					<label for="clave">Clave:</label> <br/>
@@ -58,7 +58,7 @@ if (request.getParameterMap().containsKey("salir")) {
 				<h4>Iniciar Sesión</h4>
 				<p> 
 					<label for="usuario">Usuario:</label><br/>
-					<input type="text" name="usuario" size="20" id="usuario" required="required"/>
+					<input type="text" name="usuario" size="20" id="usuarioA" required="required"/>
 				</p>
 				<p> 
 					<label for="clave">Clave:</label> <br/>

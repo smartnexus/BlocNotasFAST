@@ -2,14 +2,14 @@
 
 function muestraFormAcceso() {
 	document.getElementById("formacceso").style.display = "block";
-	document.getElementById("usuario").focus();
+	document.getElementById("usuarioA").focus();
 }
 function ocultaFormAcceso() {
 	document.getElementById("formacceso").style.display = "none";
 }
 function muestraFormRegistro() {
 	document.getElementById("formregistro").style.display = "block";
-	document.getElementById("usuario").focus();
+	document.getElementById("usuarioR").focus();
 }
 function ocultaFormRegistro() {
 	document.getElementById("formregistro").style.display = "none";

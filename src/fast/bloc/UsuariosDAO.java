@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuariosDAO {
 	private DataSource ds = null;
@@ -60,6 +62,51 @@ public class UsuariosDAO {
 		return res;
 	}
 	
+	public boolean cambiar(String usuario, int tipo) throws DAOException {
+		//El tipo que recibe es al que se quiere cambiar.
+		Connection conn;
+		boolean res = false;
+		try {
+			conn = ds.getConnection();
+			String sql = "UPDATE usuarios SET tipo_usu = ? WHERE nombre=?";
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, tipo);
+			st.setString(2, usuario);
+			int contador = st.executeUpdate();
+			if(contador == 1 ) {
+				res = true;
+				System.out.println("Se ha actualizado el tipo del usuario=" + usuario + " a " + (tipo==0?"Administrador":"Usuario"));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error de acceso a la base de datos. UsuariosDAO.");
+			throw new DAOException("No se ha podido actualizar el tipo de usuario.");
+		}
+		return res;
+		
+	}
+	
+	public List<Usuario> obtenerUsuarios() {
+		List<Usuario> usuarios = new ArrayList<>();
+		try {
+			Connection conn = ds.getConnection();
+			String sql = "SELECT nombre, tipo_usu FROM usuarios";
+			PreparedStatement st = conn.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setNombre(rs.getString(1));
+				usuario.setTipo_usu(rs.getInt(2));
+				usuarios.add(usuario);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error de acceso a la base de datos. UsuariosDAO.");
+		}
+		
+		return usuarios;
+	}
+	
 	Usuario existe(String nombre, String contra) {
 		
 		Usuario usuario = null; 
@@ -74,7 +121,9 @@ public class UsuariosDAO {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				System.out.println("Se ha encontrado el usuario y la clave coincide.");
-				usuario = new Usuario(nombre, rs.getInt(3));
+				usuario = new Usuario();
+				usuario.setNombre(nombre);
+				usuario.setTipo_usu(rs.getInt(3));
 				System.out.println("El tipo de usuario es="+usuario.getTipo_usu());
 			}
 			else {

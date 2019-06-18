@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 	
 <jsp:useBean id="usuario" class="fast.bloc.Usuario" scope="session" />
-
+		
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,6 +27,11 @@
 		<li>
 			<a href="admins/listarnotasTodas.jsp"><span class="fondo">
 				<span class="textoopcion">Mostrar <br>todas</span>
+			</span></a>
+		</li>
+		<li>
+			<a href="admins/gestionarUsuarios.jsp"><span class="fondo">
+				<span class="textoopcion">Gestionar <br>usuarios</span>
 			</span></a>
 		</li>
 		</ol>
